@@ -71,8 +71,8 @@ execute the following lines.
 You can even use MySQL Command Line Client on the Start menu on Windows. After login, create user,
 or if you prefer proceed to create you user via the Workbench, much easier!.
 	
-	CREATE USER 'Rental'@'localhost' IDENTIFIED BY 'YOURPASSWORD';
-	GRANT ALL PRIVILEGES ON Rental.* TO 'Rental'@'localhost';
+	CREATE USER 'YourDBUser'@'localhost' IDENTIFIED BY 'YOURPASSWORD';
+	GRANT ALL PRIVILEGES ON YourDBUser.* TO 'Rental'@'localhost';
 
 
 
@@ -115,7 +115,7 @@ edit  connectionString in the /var/www/RentalApi/appsettings.json  :
 and add the following line :
 
 	   "ConnectionStrings": {
-	               "RentalApi": "server=localhost;user=Rental;database=Rental;port=3306;password=YOURPASSWORD"
+	               "RentalApi": "server=localhost;user=YourDBUser;database=Rental;port=3306;password=YOURPASSWORD"
 	                 }
 
 then test the API, to see if it works (it should be waiting for request, press ctrl-c to exit)
