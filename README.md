@@ -46,10 +46,11 @@ Create folder       /var/www/RentalApi   on your linux Machine:
 	sudo mkdir /var/www/RentalApi
 
 
-Put the package in  /var/www/RentalApi  :
+Put the content of the "publish" folder in  /var/www/RentalApi :
 
 
 	cd {the place you put the package}
+        
 	sudo cp -r * /var/www/RentalApi
 
 
