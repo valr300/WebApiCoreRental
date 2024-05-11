@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `Rental` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `Rental`;
 -- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
 --
 -- Host: localhost    Database: Rental
@@ -40,8 +38,8 @@ CREATE TABLE `Rentals` (
   `RentalTimeStamp` datetime DEFAULT NULL,
   `RentalDateStart` datetime DEFAULT NULL,
   `RentalDateExpirency` datetime DEFAULT NULL,
-  `RenterName` varchar(255) DEFAULT NULL,
-  `IdRenter` varchar(36) DEFAULT NULL,
+  `TenantName` varchar(255) DEFAULT NULL,
+  `TenantId` varchar(36) DEFAULT NULL,
   `RentalAction` varchar(12) DEFAULT NULL,
   `NbDays` decimal(15,4) DEFAULT NULL,
   `Amount` int DEFAULT NULL,
@@ -58,4 +56,4 @@ CREATE TABLE `Rentals` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-24 14:08:40
+-- Dump completed on 2024-05-11  9:22:17

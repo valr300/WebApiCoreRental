@@ -16,10 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping events for database 'Rental'
---
-
---
 -- Dumping routines for database 'Rental'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `AddRental` */;
@@ -47,8 +43,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRental`(
   RentalTimeStamp datetime,
   RentalDateStart datetime,
   RentalDateExpirency datetime,
-  RenterName varchar(255),
-  IdRenter varchar(36),
+  TenantName varchar(255),
+  TenantId varchar(36),
   RentalAction varchar(12),
   NbDays decimal,
   Amount int
@@ -58,12 +54,12 @@ BEGIN
   
   set IdRental = uuid();       
    if not exists(Select * from Rental.Rentals as v
-	 		where v.RegionName = RegionName and v.RentName = RentName and v.RentalTimeStamp = RentalTimeStamp and v.IdRenter=IdRenter) then
+	 		where v.RegionName = RegionName and v.RentName = RentName and v.RentalTimeStamp = RentalTimeStamp and v.TenantId=TenantId) then
         
 	  INSERT INTO Rental.Rentals ( IdRental, InvoiceRentId, RegionName, RentName, RentType, PriceType, Price, MaxPrim, Sqm, PrimTotal, PrimFree, PricePerWeek,
-            RentalTimeStamp, RentalDateStart, RentalDateExpirency, RenterName, IdRenter, RentalAction,NbDays, Amount) 
+            RentalTimeStamp, RentalDateStart, RentalDateExpirency, TenantName, TenantId, RentalAction,NbDays, Amount) 
             VALUES ( IdRental, InvoiceRentId, RegionName, RentName, RentType, PriceType, Price, MaxPrim, Sqm, PrimTotal, PrimFree, PricePerWeek,
-            RentalTimeStamp, RentalDateStart, RentalDateExpirency, RenterName, IdRenter, RentalAction,NbDays, Amount);
+            RentalTimeStamp, RentalDateStart, RentalDateExpirency, TenantName, TenantId, RentalAction,NbDays, Amount);
 			
 		
 
@@ -85,4 +81,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-23 12:13:08
+-- Dump completed on 2024-05-11  9:22:20
