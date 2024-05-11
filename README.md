@@ -33,7 +33,7 @@ adapting these instructions to your own environment.
 And I am not responsible in any way shape or form on whatever you do on your system.
 Take backups before proceeding.
 
-Note: if you already add this installed with version 1.0, simply install the update_db.sql scripts to upgrade to 2.0.
+Note: if you already add this installed with version 1.0, simply install this new version and run the update_db.sql scripts to upgrade to 2.0.
 
 Step 1:  Get the package 
 -------------------------
