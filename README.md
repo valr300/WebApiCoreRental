@@ -39,11 +39,12 @@ Updating
 ---------
 
   if you already installed this package, then proceed with updates .
+  
       1. sudo systemctl stop kestrel-WebApiCoreRental.service 
       2. Put the content of the "publish" folder in  /var/www/RentalApi :
       3. install the appropriate script to go from your current version to the latest :
             update_db200.sql  to upgrade from 1.xx to 2.0.
-	    update_db201.sql  to upgrade from 2.00 to 2.01.
+	    update_db201.sql  to upgrade from 2.00 to 2.01.  (search and replace "YOURDBREGION" by your real Database file for your region)
       4. sudo systemctl start kestrel-WebApiCoreRental.service 
 
  You stop here, you should have the latest version.
