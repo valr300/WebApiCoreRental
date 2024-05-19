@@ -1,5 +1,5 @@
-Notes for installing the WebApiCoreRental 2.0
----------------------------------------------
+Notes for installing the WebApiCoreRental 2.01
+----------------------------------------------
 
 The WebApiCoreRental has the purpose of collecting Data for the "Vallands Rental System"
 This product can be found in OpenSim at the Valland Shop,  see http://www.vallands.ca  for more information.
@@ -33,7 +33,7 @@ adapting these instructions to your own environment.
 And I am not responsible in any way shape or form on whatever you do on your system.
 Take backups before proceeding.
 
-if you never installed this package, proceed to step 1. 
+if you never installed this package, proceed directly to step 1. 
   
 Updating 
 ---------
