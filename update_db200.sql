@@ -6,7 +6,7 @@
 ALTER TABLE Rentals CHANGE RenterName TenantName varchar(255);
 ALTER TABLE Rentals CHANGE IdRenter TenantId varchar(36);
 
-DROP PROCEDURE `Rental`.`AddRental`;
+DROP PROCEDURE IF EXISTS  `Rental`.`AddRental`;
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRental`(
   RegionName varchar(63),
