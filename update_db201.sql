@@ -103,19 +103,41 @@ CREATE
     SQL SECURITY DEFINER
 VIEW `Stats_Details` AS
     SELECT 
-        `RentalStats`.`TenantName` AS `TenantName`,
-        `RentalStats`.`RentalTimeStamp` AS `RentalTimeStamp`,
-        `RentalStats`.`RentalAction` AS `RentalAction`,
-        `RentalStats`.`RentalDateStart` AS `RentalDateStart`,
-        `RentalStats`.`RentalDateExpirency` AS `RentalDateExpirency`,
-        `RentalStats`.`Sqm` AS `Sqm`,
-        `RentalStats`.`PrimTotal` AS `PrimTotal`,
-        `RentalStats`.`PricePerWeek` AS `PricePerWeek`,
-        `RentalStats`.`NbDays` AS `NbDays`,
-        `RentalStats`.`Amount` AS `Amount`
+        `r`.`RegionName` AS `RegionName`,
+        `r`.`RentName` AS `RentName`,
+        (CASE
+            WHEN (`r`.`RentType` = 0) THEN 'RentGroup'
+            WHEN (`r`.`RentType` = 1) THEN 'RentOwner'
+        END) AS `RentType`,
+        (CASE
+            WHEN (`r`.`PriceType` = -(1)) THEN 'Server'
+            WHEN (`r`.`PriceType` = 0) THEN '$Sqm'
+            WHEN (`r`.`PriceType` = 1) THEN '$Prim'
+            WHEN (`r`.`PriceType` = 2) THEN '$Fixed'
+        END) AS `PriceType`,
+        (CASE
+            WHEN (`r`.`Price` = -(1)) THEN 'Server'
+            ELSE `r`.`Price`
+        END) AS `Price`,
+        (CASE
+            WHEN (`r`.`MaxPrim` = -(1)) THEN 'Server'
+            ELSE `r`.`MaxPrim`
+        END) AS `MaxPrim`,
+        `r`.`PricePerWeek` AS `PricePerWeek`,
+        `r`.`Sqm` AS `Sqm`,
+        `r`.`PrimTotal` AS `PrimTotal`,
+        `r`.`PrimFree` AS `PrimFree`,
+        `r`.`RentalTimeStamp` AS `RentalTimeStamp`,
+        `r`.`RentalDateStart` AS `RentalDateStart`,
+        `r`.`RentalDateExpirency` AS `RentalDateExpirency`,
+        `r`.`TenantName` AS `TenantName`,
+        `r`.`TenantId` AS `TenantId`,
+        `r`.`RentalAction` AS `RentalAction`,
+        `r`.`NbDays` AS `NbDays`,
+        `r`.`Amount` AS `Amount`
     FROM
-        `RentalStats`
-    ORDER BY `RentalStats`.`RentalTimeStamp` DESC
+        `RentalStats` `r`
+    ORDER BY `r`.`RentalTimeStamp` DESC
 
 
 ---
