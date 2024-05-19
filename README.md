@@ -1,7 +1,7 @@
 Notes for installing the WebApiCoreRental 2.0
 ---------------------------------------------
 
-The WebApiCoreRental has the purpose of collecting Data for the "Vallands Rental System 1.0"
+The WebApiCoreRental has the purpose of collecting Data for the "Vallands Rental System"
 This product can be found in OpenSim at the Valland Shop,  see http://www.vallands.ca  for more information.
 
 You need dotnet    6.0  to run  the WebApiCoreRental.
@@ -33,7 +33,21 @@ adapting these instructions to your own environment.
 And I am not responsible in any way shape or form on whatever you do on your system.
 Take backups before proceeding.
 
-Note: if you already add this installed with version 1.0, simply install this new version and run the update_db.sql scripts to upgrade to 2.0.
+if you never installed this package, proceed to step 1. 
+  
+Updating 
+---------
+
+  if you already installed this package, then proceed with updates .
+      1. sudo systemctl stop kestrel-WebApiCoreRental.service 
+      2. Put the content of the "publish" folder in  /var/www/RentalApi :
+      3. install the appropriate script to go from your current version to the latest :
+            update_db200.sql  to upgrade from 1.xx to 2.0.
+	    update_db201.sql  to upgrade from 2.00 to 2.01.
+      4. sudo systemctl start kestrel-WebApiCoreRental.service 
+
+ You stop here, you should have the latest version.
+
 
 Step 1:  Get the package 
 -------------------------
