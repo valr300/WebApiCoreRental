@@ -74,7 +74,7 @@ Put the content of the "publish" folder in  /var/www/RentalApi :
 
 Step 2: Create the Database
 ----------------------------
-Execute the following script in your Database MySql  :
+Execute the following script in your Database MySql  :  (search and replace "YOURDBSHEMA" by your OpenSim SHEMA for your regions)
  
 	Rental_Rentals.sql  		will build the database Rental and the Tables
 	Rental_routines.sql             will build the stored procs.  
