@@ -180,6 +180,7 @@ VIEW `Stats_RentedDetails` AS
         `rsd`.`Amount` AS `AmountTransaction`,
         `rsd`.`RentalDateExpirency` AS `RentalDateExpirency`,
         `rsd`.`PricePerWeek` AS `PricePaidPerWeek`,
+        `rsd`.`RentalTimeStamp` AS `RentalTimeStamp`,
         (TO_DAYS(`rsd`.`RentalDateExpirency`) - TO_DAYS(NOW())) AS `RemainingDays`
     FROM
         (`Stats_Last` `rentaldet`
@@ -212,6 +213,7 @@ VIEW `Stats_Rented` AS
         `det`.`TenantName` AS `TenantName`,
         `det`.`TenantId` AS `TenantId`,
         `det`.`LastAction` AS `LastAction`,
+        `det`.`RentalTimeStamp` AS `LastDate`,
         `det`.`RentedDays` AS `RentedDays`,
         `det`.`AmountTransaction` AS `LastAmountPaid`,
         `det`.`RentalDateExpirency` AS `RentalDateExpirency`,
@@ -221,7 +223,6 @@ VIEW `Stats_Rented` AS
         (`Rentals_Details` `r`
         JOIN `Stats_RentedDetails` `det` ON (((`det`.`RegionName` = `r`.`RegionName`)
             AND (`det`.`RentName` = `r`.`RentName`))))
-            
 
 
 
