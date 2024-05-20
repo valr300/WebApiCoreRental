@@ -8,8 +8,11 @@ DROP PROCEDURE IF EXISTS `Rental`.`EndFullUpdate`;
 --- View Rentals_Details
 ---
 
+
+
+USE `Rental`;
 CREATE 
-    ALGORITHM = UNDEFINED 
+     OR REPLACE ALGORITHM = UNDEFINED 
     DEFINER = `root`@`localhost` 
     SQL SECURITY DEFINER
 VIEW `Rentals_Details` AS
@@ -20,15 +23,28 @@ VIEW `Rentals_Details` AS
         `l`.`Description` AS `ParcelDescription`,
         `l`.`IsGroupOwned` AS `IsGroupOwned`,
         `l`.`Area` AS `Sqm`,
+        (Case 
+            when (`r`.`Access` = 0) THEN 'NONE'
+            when (`r`.`Access` = 1) THEN 'PUBLIC'
+            when (`r`.`Access` = 2) THEN 'GROUP'
+            else "??"
+         END) AS Access,         
         (CASE
             WHEN (`r`.`RentType` = 0) THEN 'RentGroup'
             WHEN (`r`.`RentType` = 1) THEN 'RentOwner'
+            else "??"
         END) AS `RentType`,
+        (Case 
+            when (`r`.`SendGroup` = 0) THEN 'OFF'
+            when (`r`.`SendGroup` = 1) THEN 'ON'
+            else "??"
+         END) as SendGroup,   
         (CASE
             WHEN (`r`.`PriceType` = -(1)) THEN 'Server'
             WHEN (`r`.`PriceType` = 0) THEN '$Sqm'
             WHEN (`r`.`PriceType` = 1) THEN '$Prim'
             WHEN (`r`.`PriceType` = 2) THEN '$Fixed'
+            ELSE "??"
         END) AS `PriceType`,
         (CASE
             WHEN (`r`.`Price` = -(1)) THEN 'Server'
@@ -42,8 +58,9 @@ VIEW `Rentals_Details` AS
         `r`.`RentPosition` AS `RentPosition`
     FROM
         (`Rentals` `r`
-        JOIN `YOURDBSHEMA`.`land` `l` ON ((`l`.`UUID` = `r`.`ParcelId`)))
-    ORDER BY `r`.`RegionName` , `r`.`RentName`
+        JOIN `YOURSCHEMADB`.`land` `l` ON ((`l`.`UUID` = `r`.`ParcelId`)))
+    ORDER BY `r`.`RegionName` , `r`.`RentName`;
+
 
 
     
@@ -185,8 +202,15 @@ VIEW `Stats_Rented` AS
 --  procedure AddRentals
 --
 
+USE `Rental`;
+DROP procedure IF EXISTS `AddRentals`;
 
-DELIMITER ;;
+USE `Rental`;
+DROP procedure IF EXISTS `Rental`.`AddRentals`;
+;
+
+DELIMITER $$
+USE `Rental`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRentals`(
   RentId varchar(36),
   RegionName varchar(63),
@@ -199,39 +223,30 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRentals`(
   Price decimal(15,6),
   MaxPrim int,
   PricePerWeek int,
-  LastUpdate varchar(64)
+  LastUpdate varchar(64),
+  SendGroup int,
+  Access int
   )
 BEGIN
    if not exists(Select * from Rental.Rentals as v
 	 		where v.RentId = RentId and v.RentName = RentName) then
         
-	  INSERT INTO Rental.Rentals ( RentId, RegionName, RentName, ParcelId, RentType, RentPosition, SnapshotId, PriceType, Price, MaxPrim,PricePerWeek,LastUpdate  ) 
-            VALUES ( RentId, RegionName, RentName, ParcelId, RentType, RentPosition, SnapshotId, PriceType, Price, MaxPrim, PricePerWeek,LastUpdate);
+	  INSERT INTO Rental.Rentals ( RentId, RegionName, RentName, ParcelId, RentType, RentPosition, SnapshotId, PriceType, Price, MaxPrim,PricePerWeek,LastUpdate,SendGroup,Access  ) 
+            VALUES ( RentId, RegionName, RentName, ParcelId, RentType, RentPosition, SnapshotId, PriceType, Price, MaxPrim, PricePerWeek,LastUpdate,SendGroup,Access);
       else
       Update Rental.Rentals  v
         set v.RegionName= RegionName, v.ParcelId = ParcelId, v.RentType = RentType, v.RentPosition = RentPosition, v.SnapshotId=SnapshotId, 
-            v.PriceType=PriceType, v.Price=Price, v.MaxPrim=MaxPrim,v.PricePerWeek=PricePerWeek,v.LastUpdate=LastUpdate 
+            v.PriceType=PriceType, v.Price=Price, v.MaxPrim=MaxPrim,v.PricePerWeek=PricePerWeek,v.LastUpdate=LastUpdate ,
+            v.SendGroup=SendGroup, v.Access=Access
 		where  v.RentId = RentId and v.RentName = RentName	;
 		
 
    end if;
   
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `AddRentalStats` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+END$$
 
+DELIMITER ;
+;
 
 
 -- 
