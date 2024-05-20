@@ -45,7 +45,7 @@ Updating
       3. install the appropriate script to go from your current version to the latest :
       	3.1 update_db200.sql  to upgrade from 1.xx to 2.0.
        	3.2 update_db201.sql  to upgrade from 2.00 to 2.01.  (search and replace "YOURDBSHEMA" by your OpenSim SHEMA for your regions)
-	3.3 update_db202.sql  to upgrade from 2.01 to 2.02  (search and replace "YOURDBSHEMA" by your OpenSim SHEMA for your regions)
+        3.3 update_db202.sql  to upgrade from 2.01 to 2.02  (search and replace "YOURDBSHEMA" by your OpenSim SHEMA for your regions)
 	
       4. sudo systemctl start kestrel-WebApiCoreRental.service 
 
