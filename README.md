@@ -228,12 +228,12 @@ The tables:
  RentalStats : the detailed statistic of  each rents that are made.
  
 The views  :
-   Rentals_Details : Display all your rental parcel .
-   Stats_Rented : Display your currently rented parcels and remaining days
-   
-   Stats_Details : Display each rents that were made. 
-   Stats_RentedDetails : currently rented parcels (less info)
-   Stats_Last : Last transaction date  per  rentals
-   
+
+	Rentals_Details : Display all your rental parcels 
+	Stats_Rented : Display your currently rented parcels and remaining days
+ 	Stats_Details : Display each rents that were made 
+	Stats_RentedDetails : currently rented parcels (less info)
+ 	Stats_Last : Last transaction date  per  rentals 
+	
 
 
