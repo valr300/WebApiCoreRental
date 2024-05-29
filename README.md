@@ -102,7 +102,9 @@ you will need to edit your sites-available/default and add the API.
 
 	sudo vi /etc/nginx/sites-available/default 
  
-add these line in the server{} definition ( the Http 80 section only will be enough, as the server will only be accessed locally, change YOURPORT by the Port number you want your service to run) 
+add these line in the server{} definition ( the Http 80 section only will be enough, as the server will only be accessed locally, 
+change YOURPORT by the Port number you want your service to run, you will aslo want these port to be closed from outside,
+ie do not open them for the outside world, they will be access from localhost only) 
 
        location /RU/ {
                     proxy_pass         http://localhost:YOURPORT;
