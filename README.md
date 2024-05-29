@@ -55,7 +55,7 @@ Updating
 Step 1:  Get the package 
 -------------------------
 You will need the latest version of WebApiCoreRental, you can get it here:  https://github.com/valr300/WebApiCoreRental
-You can get the package only, the source isn’t needed.
+You can get the folder "publish" only, the source isn’t needed.
 
 
 Create folder       /var/www/RentalApi   on your linux Machine:
