@@ -103,7 +103,7 @@ you will need to edit your sites-available/default and add the API.
 	sudo vi /etc/nginx/sites-available/default 
  
 add these line in the server{} definition ( the Http 80 section only will be enough, as the server will only be accessed locally, 
-change YOURPORT by the Port number you want your service to run, you will aslo want these port to be closed from outside,
+change YOURPORT by the Port number you want your service to run, you will also want these port to be closed from outside,
 ie do not open them for the outside world, they will be access from localhost only) 
 
        location /RU/ {
@@ -215,8 +215,25 @@ should be something like this :  (replacing the YOURPORT by the port number you 
 
 	http://localhost:YOURPORT/RU/
 
-At this point everything should be working. You can Rent, and you should see the Data coming in your Database, and can use this select to see your data.
+At this point everything should be working. 
+To populate you databse for the first time, press "Reset Data" on the server, 
+this will send all rentals data, any new renting will be added to the sttistics.
+You can Rent, and you should see the Data coming in your Database, and can use this select to see your data.
 
-	Select * from Rentals order by RentalTimeStamp
+
+The stats on MySql populate many tables and views that you can query from your  Workbench or any other data tools: 
+
+The tables:
+ Rentals : Contain all rentals you have defined
+ RentalStats : the detailed statistic of  each rents that are made.
+ 
+The views  :
+   Rentals_Details : Display all your rental parcel .
+   Stats_Rented : Display your currently rented parcels and remaining days
+   
+   Stats_Details : Display each rents that were made. 
+   Stats_RentedDetails : currently rented parcels (less info)
+   Stats_Last : Last transaction date  per  rentals
+   
 
 
