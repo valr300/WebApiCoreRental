@@ -1,4 +1,4 @@
-Notes for installing the WebApiCoreRental 2.02
+Notes for installing the WebApiCoreRental 3.00
 ----------------------------------------------
 
 The WebApiCoreRental has the purpose of collecting Data for the "Vallands Rental System"
