@@ -1,10 +1,10 @@
-Notes for installing the WebApiCoreRental 3.00
+Notes for installing the WebApiCoreRental 3.01
 ----------------------------------------------
 
 The WebApiCoreRental has the purpose of collecting Data for the "Vallands Rental System"
 This product can be found in OpenSim at the Valland Shop,  see http://www.vallands.ca  for more information.
 
-You need dotnet    6.0  to run  the WebApiCoreRental.
+You need dotnet    8.0.31  to run  the WebApiCoreRental.
 
 These steps assume you know what you are doing. As I can barely help you myself.  
 You must be the owner of your system, as you will need the root power.
@@ -18,7 +18,7 @@ This document show the installation on:
 	
 	-MySql Database  8.0.36-0ubuntu0.22.04.1
 	
-	-dotnet    6.0.127 [/usr/lib/dotnet/sdk]
+	-dotnet    8.0.31 [/usr/lib/dotnet/sdk]
 
 
 
@@ -143,7 +143,7 @@ and add the following line :
 then test the API, to see if it works (it should be waiting for request, press ctrl-c to exit)
 proceed to fix any error it could give you	
 
-	sudo dotnet WebApiCoreRental.dll --urls http://localhost:YOURPORT     
+	sudo /opt/dotnet/dotnet /var/www/RentalApi/WebApiCoreRental.dll --urls http://localhost:YOURPORT   
 
 
 
@@ -160,7 +160,7 @@ and add the following lines (replacing the YOURPORT by the port number you want 
 	
 	[Service]
 	WorkingDirectory=/var/www/RentalApi
-	ExecStart=/usr/bin/dotnet /var/www/RentalApi/WebApiCoreRental.dll --urls http://localhost:YOURPORT
+	ExecStart=/opt/dotnet/dotnet /var/www/RentalApi/WebApiCoreRental.dll --urls http://localhost:YOURPORT
 	Restart=always
 	# Restart service after 10 seconds if the dotnet service crashes:
 	RestartSec=10
@@ -194,6 +194,8 @@ proceed to fix any error it could give you, you can use the following command to
 	journalctl -f
 	sudo systemctl status nginx 
 
+ if it is not working, make sure you point to you right path for dotnet 
+
 
 Step 9: Opening the port on your OpenSim installation
 ------------------------------------------------------
@@ -217,6 +219,10 @@ should be something like this :  (replacing the YOURPORT by the port number you 
 	http://localhost:YOURPORT/RU/
 
 At this point everything should be working. 
+
+to make a test, you can click inside the Rental server, on the box with the image "click here to test API", 
+you might want to RightClick Edit Linked, and change the position of that box temporarely out so you can click on it more easily.
+
 To populate you databse for the first time, press "Reset Data" on the server, 
 this will send all rentals data, any new renting will be added to the sttistics.
 You can Rent, and you should see the Data coming in your Database, and can use this select to see your data.
@@ -232,7 +238,7 @@ The views  :
 
 	Rentals_Details : Display all your rental parcels 
 	Stats_Rented : Display your currently rented parcels and remaining days
- 	Stats_Details : Display each rents that were made 
+ 	Stats_Details : Display each rentals with their configs
 	Stats_RentedDetails : currently rented parcels (less info)
  	Stats_Last : Last transaction date  per  rentals 
 	
