@@ -1,10 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Rental_Rentals.sql" />
+    <None Remove="Rental_routines.sql" />
+    <None Remove="update_db200.sql" />
+    <None Remove="update_db201.sql" />
+    <None Remove="update_db202.sql" />
+    <None Remove="update_db300.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Rental_Rentals.sql" />
+    <Content Include="Rental_routines.sql" />
+    <Content Include="update_db200.sql" />
+    <Content Include="update_db201.sql" />
+    <Content Include="update_db202.sql" />
+    <Content Include="update_db300.sql" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.31" />
