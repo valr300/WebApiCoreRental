@@ -104,8 +104,8 @@ you will need to edit your sites-available/default and add the API.
 	sudo vi /etc/nginx/sites-available/default 
  
 add these line in the server{} definition ( the Http 80 section only will be enough, as the server will only be accessed locally, 
-change YOURPORT by the Port number you want your service to run, you will also want these port to be closed from outside,
-ie do not open them for the outside world, they will be access from localhost only) 
+change YOURPORT by the Port number you want your service to run, usualiy something like 5000, 5010 etc.. 
+you will also want these port to be closed from outside, ie do not open them for the outside world, they will be access from localhost only) 
 
        location /RU/ {
                     proxy_pass         http://localhost:YOURPORT;
@@ -127,8 +127,8 @@ then enter the following command to tell Nginx the change
 
 
 
-Step 5: Configuring and Testing the WebApiCore 
------------------------------------------------
+Step 5: Configuring the WebApiCore and first test
+-------------------------------------------------
 
 edit  connectionString in the /var/www/RentalApi/appsettings.json  :
 
@@ -141,11 +141,12 @@ and add the following line :
 	                 }
 
 then test the API, to see if it works (it should be waiting for request, press ctrl-c to exit)
-proceed to fix any error it could give you	
+proceed to fix any error it could give you.
+replace YOURPORT by the port you selected in step 4
 
 	sudo /opt/dotnet/dotnet /var/www/RentalApi/WebApiCoreRental.dll --urls http://localhost:YOURPORT   
 
-
+    	
 
 Step 6: Configuring the Service
 ---------------------------------
@@ -189,7 +190,7 @@ to check if it is running:
 
 	sudo systemctl status kestrel-WebApiCoreRental.service 
 
-proceed to fix any error it could give you, you can use the following command to help you:	
+proceed to fix any error it could give you, you can use the following command to help you find errors:	
 
 	journalctl -f
 	sudo systemctl status nginx 
@@ -200,11 +201,11 @@ proceed to fix any error it could give you, you can use the following command to
 Step 9: Opening the port on your OpenSim installation
 ------------------------------------------------------
 
-
 change the OpenSim.ini to allow the port connection (replacing the YOURPORT by the port number you want your service to run on):
 	
 	OutboundDisallowForUserScriptsExcept = 127.0.0.1:YOURPORT
 
+(if you already have address written there, simply add them with |    ex :  OutboundDisallowForUserScriptsExcept = 127.0.0.1:YOURPORT|ADDRESS2|Addres3 )
 
 then restart your region
 
