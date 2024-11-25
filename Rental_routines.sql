@@ -1,6 +1,6 @@
-/ ******************************************************************* */
+/* ******************************************************************* */
 /*  Procedures                                                        */
-/ ******************************************************************* */
+/* ******************************************************************* */
 USE `Rental`;
 DROP procedure IF EXISTS `AddRentals`;
 
@@ -139,9 +139,9 @@ DELIMITER ;
 
 
 
-/ ******************************************************************* */
+/* ******************************************************************* */
 /*  VIEWS                                                              */
-/ ******************************************************************* */
+/* ******************************************************************* */
 
 USE `Rental`;
 CREATE 
@@ -278,7 +278,7 @@ VIEW `Rental`.`Rentals_Details` AS
         `r`.`RentPosition` AS `RentPosition`
     FROM
         ((`Rental`.`Rentals` `r`
-        JOIN `YOURSHEMADB`.`land` `l` ON ((`l`.`UUID` = `r`.`ParcelId`)))
+        JOIN `YOURDBSHEMA`.`land` `l` ON ((`l`.`UUID` = `r`.`ParcelId`)))
         LEFT JOIN `Rental`.`Stats_RentedDetails` `rd` ON (((`Rental`.`rd`.`RegionName` = `r`.`RegionName`)
             AND (`Rental`.`rd`.`RentName` = `r`.`RentName`))))
     ORDER BY `r`.`RegionName` , `r`.`RentName`;
