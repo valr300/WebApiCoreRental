@@ -127,7 +127,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `EndFullUpdate`(
   )
 BEGIN
  delete  r
-   from Rental.Rentals  r
+   from Rental.Rentals  r 
 	where r.RegionName = vRegionName and r.LastUpdate < vLastUpdate;
 		
   
@@ -139,9 +139,28 @@ DELIMITER ;
 
 
 
+
 /* ******************************************************************* */
 /*  VIEWS                                                              */
 /* ******************************************************************* */
+
+USE `Rental`;
+CREATE 
+     OR REPLACE ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `Rental`.`Stats_Last` AS
+    SELECT  
+        `rsd`.`RegionName` AS `RegionName`,
+        `rsd`.`RentName` AS `RentName`,
+        MAX(`rsd`.`RentalTimeStamp`) AS `LastRental`
+    FROM
+        `Rental`.`RentalStats` `rsd`
+    WHERE
+        (`rsd`.`RentalDateExpirency` >= NOW())
+    GROUP BY `rsd`.`RegionName` , `rsd`.`RentName`;
+
+
 
 USE `Rental`;
 CREATE 
@@ -322,18 +341,4 @@ VIEW `Rental`.`Stats_Rented` AS
             AND (`Rental`.`det`.`RentName` = `Rental`.`r`.`RentName`))));
 
 
-USE `Rental`;
-CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
-    DEFINER = `root`@`localhost` 
-    SQL SECURITY DEFINER
-VIEW `Rental`.`Stats_Last` AS
-    SELECT  
-        `rsd`.`RegionName` AS `RegionName`,
-        `rsd`.`RentName` AS `RentName`,
-        MAX(`rsd`.`RentalTimeStamp`) AS `LastRental`
-    FROM
-        `Rental`.`RentalStats` `rsd`
-    WHERE
-        (`rsd`.`RentalDateExpirency` >= NOW())
-    GROUP BY `rsd`.`RegionName` , `rsd`.`RentName`;
+
